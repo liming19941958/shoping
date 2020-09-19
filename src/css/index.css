@@ -1,4 +1,22 @@
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 210px;
 
+    min-height: 400px;
+}
+.el-submenu__title {
+    height: 67px!important;
+    line-height: 67px!important;
+}
+.el-submenu__title:hover{
+    background-color: rgb(17,196,164)!important;
+    color: #ffffff!important;
+}
+.el-submenu__title:hover i{
+   color: #ffffff!important;
+}
+a{
+    text-decoration: none!important;
+}
 ::-webkit-scrollbar {
        width: 0.55rem;
        height: 0.25rem;
@@ -18,12 +36,6 @@
    .el-form-item__label{ /*修改密码列表输入框前面文字样式*/
        color: rgba(0,0,0,0.7);
        font-weight: normal;
-   }
-   .el-menu-item,
-   .el-submenu__title { /*左侧边菜单栏 li 行高*/
-       height: 38px;
-       line-height: 38px;
-       position: relative;
    }
    .el-scrollbar__wrap {
        overflow-x: hidden;
@@ -47,19 +59,10 @@
    .el-menu {/*取消左侧菜单栏右边框*/
         border-right: 0;
    }
-   .Sidebar{/*左侧边栏背景及高度*/
-       /*overflow-y: scroll;*/
-       display: inline-block;
-       position: relative;
-       height: 100%;
-       background-color: rgb(17, 46, 100);
-   }
+
    .el-menu-item:hover {/*鼠标经过左侧边栏各个选项时的背景颜色*/
        background-color: rgba(255, 255, 255, 0.091) !important;
 
-   }
-   .el-submenu__title:hover {/*鼠标经过左侧边栏标题项时的背景颜色*/
-       background-color: rgba(0, 0, 0, 0.1) !important;
    }
    .el-breadcrumb__inner:hover{
        color: #575757 !important;

@@ -47,10 +47,10 @@ module.exports = {
         open: true,
         // disableHostCheck: false,
         // host: "192.168.0.101",
-        port: 9002,
+        port: 9003,
         proxy: {
             '/': {
-                target: 'https://www.liulongbin.top:8888/api/private/v1/',
+                target: 'http://192.168.1.197:8090/api/',
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {

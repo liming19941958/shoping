@@ -1,17 +1,17 @@
 <template>
-    <div class="home">welcome</div>
+    <div class="tenant">租户管理</div>
 </template>
 
 <script>
     export default {
-        name: "home"
+        name: "index"
     }
 </script>
 
 <style scoped lang="scss">
-    .home{
+    .tenant{
         width: 100%;
         height: 100%;
-        background-color: #acf0ff;
+        background-color: #ffef25;
     }
 </style>
