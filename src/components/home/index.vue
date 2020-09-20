@@ -16,49 +16,65 @@
            >
                 <router-link to="/home">
                     <el-menu-item index="0">
-                        <i class="el-icon-house"></i>
+                        <i>
+                            <img src="http://192.168.1.197:8090/Content/building/images/i_ico_sy.png" alt="">
+                        </i>
                         <span slot="title">首页</span>
                     </el-menu-item>
                 </router-link>
                 <router-link to="/tenant">
                     <el-menu-item index="1">
-                        <i class="el-icon-setting"></i>
+                        <i>
+                            <img src="http://192.168.1.197:8090/Content/building/images/i_ico_rentergl.png" alt="">
+                        </i>
                         <span slot="title">租户管理</span>
                     </el-menu-item>
                 </router-link>
                 <router-link to="/menus">
                     <el-menu-item index="2">
-                        <i class="el-icon-setting"></i>
+                        <i>
+                            <img src="http://192.168.1.197:8090/Content/building/images/i_ico_fkgl.png" alt="">
+                        </i>
                         <span slot="title">访客管理</span>
                     </el-menu-item>
                 </router-link>
                 <router-link to="/menus">
                     <el-menu-item index="3">
-                        <i class="el-icon-setting"></i>
+                        <i>
+                            <img src="http://192.168.1.197:8090/Content/building/images/i_ico_fxt.png" alt="">
+                        </i>
                         <span slot="title">放行条管理</span>
                     </el-menu-item>
                 </router-link>
                 <router-link to="/menus">
                     <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
+                        <i>
+                            <img src="http://192.168.1.197:8090/Content/building/images/i_ico_sbbx.png" alt="">
+                        </i>
                         <span slot="title">设备保修</span>
                     </el-menu-item>
                 </router-link>
                 <router-link to="/menus">
                     <el-menu-item index="5">
-                        <i class="el-icon-setting"></i>
+                        <i>
+                            <img src="http://192.168.1.197:8090/Content/building/images/i_ico_jfgl.png" alt="">
+                        </i>
                         <span slot="title">缴费管理</span>
                     </el-menu-item>
                 </router-link>
                 <router-link to="/menus">
                     <el-menu-item index="6">
-                        <i class="el-icon-setting"></i>
+                        <i>
+                            <img src="http://192.168.1.197:8090/Content/building/images/i_ico_jfcx.png" alt="">
+                        </i>
                         <span slot="title">缴费查询</span>
                     </el-menu-item>
                 </router-link>
                 <el-submenu index="2">
                     <template slot="title">
-                        <i class="el-icon-coin"></i>
+                        <i>
+                            <img src="http://192.168.1.197:8090/Content/building/images/i_ico_sbwb.png" alt="">
+                        </i>
                         <span slot="title">设备维保</span>
                     </template>
                         <router-link to="/CustomerInformationPage">
@@ -82,13 +98,17 @@
                     </el-submenu>
                         <router-link to="/menus">
                             <el-menu-item index="6">
-                                <i class="el-icon-setting"></i>
+                                <i>
+                                    <img src="http://192.168.1.197:8090/Content/building/images/i_ico_xxfb.png" alt="">
+                                </i>
                                 <span slot="title">信息发布</span>
                             </el-menu-item>
                         </router-link>
                         <el-submenu index="2-4">
                             <template slot="title">
-                                <i class="el-icon-coin"></i>
+                                <i>
+                                    <img src="http://192.168.1.197:8090/Content/building/images/i_ico_sbgl.png" alt="">
+                                </i>
                                 <span slot="title">设备管理</span>
                             </template>
                             <router-link to="/UnitOfMeasurementPage">
@@ -106,7 +126,9 @@
                         </el-submenu>
                         <el-submenu index="2-5">
                             <template slot="title">
-                                <i class="el-icon-coin"></i>
+                                <i>
+                                    <img src="http://192.168.1.197:8090/Content/building/images/i_ico_xtgl.png" alt="">
+                                </i>
                                 <span slot="title">系统设置</span>
                             </template>
                             <router-link to="/SamplingStandardPage">
@@ -135,7 +157,7 @@
             <div class="header">
                 <div class="menubtn">
                     <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="toggleCollapsed"> </i>
-                    <span>首 页</span>
+                    <span>首页</span>
                 </div>
                 <ul class="btn">
                     <li>
@@ -163,7 +185,7 @@
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click="resetForm('ruleForm')">取 消</el-button>
-                        <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+                        <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #11C4A4;">确 定</el-button>
                     </div>
                 </el-dialog>
             </div>
@@ -210,6 +232,7 @@
         },
         mounted(){
             this.active = this.$route.name;
+
         },
         methods:{
             submitForm(formName) {
@@ -256,7 +279,6 @@
             },
             getDisPlayName(){
                 this.$http.get('Building/Business/getDisPlayName').then(res=>{
-                    console.log(res)
                     if (res.data.IsSuc){
                         this.username = res.data.Result;
                         // this.$store.commit('setUser',username)
@@ -280,11 +302,13 @@
     .content-enter{
         transform: translateX(-100%);
         opacity: 0;
+        position: absolute;
+
     }
     .content-leave-to{
         transform: translateX(100%);
-        position: absolute;
         opacity: 0;
+        position: absolute;
     }
     .content-enter-active,
     .content-leave-active{
@@ -322,16 +346,40 @@
             }
             .el-submenu__title:hover{
                 background-color: rgb(17,196,164)!important;
+                i{
+                    color: #ffffff !important;
+                    img{
+                        right: -5.5px;
+                    }
+
+                }
             }
             .el-menu-item:hover {
                 background-color: rgb(17,196,164)!important;
                 color: #ffffff !important;
+
                 i{
                     color: #ffffff !important;
+                    img{
+                        right: -5.5px;
+                    }
+
                 }
             }
             i{
-                font-size: 35px;
+                margin-right: -6px;
+                margin-left: -6px;
+                margin-bottom: 8px;
+                width: 39px;
+                height: 39px;
+                overflow: hidden;
+                display: inline-block;
+                position: relative;
+                img{
+                    height: 115%;
+                    position:absolute;
+                    display: inline-block;
+                }
             }
             span{
                 margin-left: 15px;
@@ -414,6 +462,7 @@
             .content{
                 width: 100%;
                 flex: 87;
+                position: relative;
             }
             .footer{
                 flex: 5;
