@@ -8,6 +8,8 @@ const store = new Vuex.Store({
         token: '傻逼吗',
         user:'',
         collapsed:false,
+        comp:'tab',
+        item:null,
     },
     mutations: {
         setUser (state,user) {
@@ -17,6 +19,19 @@ const store = new Vuex.Store({
         setCollapsed (state,collapsed) {
             state.collapsed = collapsed;
         },
+        setTab (state){
+            state.comp = 'tab';
+        },
+        setEdit(state){
+            state.comp = 'editor';
+        },
+        setEditAdd(state){
+            state.comp = 'ediAdd';
+        },
+        setNews(state,item){
+            state.comp = 'officialNews';
+            state.item = item;
+        }
         // delToken (state) {
         //     state.token = '';
         //     localStorage.removeItem("token");

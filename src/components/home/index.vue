@@ -279,13 +279,16 @@
             },
             getDisPlayName(){
                 this.$http.get('Building/Business/getDisPlayName').then(res=>{
-                    if (res.data.IsSuc){
-                        this.username = res.data.Result;
-                        // this.$store.commit('setUser',username)
-                    }else {
-                        // this.$store.commit('setUser','Admin');
-                        this.username = 'Admin';
+                    if (res.status ===200){
+                        if (res.data.IsSuc){
+                            this.username = res.data.Result;
+                            // this.$store.commit('setUser',username)
+                        }else {
+                            // this.$store.commit('setUser','Admin');
+                            this.username = 'Admin';
+                        }
                     }
+
                 })
             },
             handleOpen(key, keyPath) {
@@ -312,7 +315,7 @@
     }
     .content-enter-active,
     .content-leave-active{
-        transition: all 1s ease;
+        transition: all 0.8s ease;
     }
     .homeMain {
         position: absolute;
@@ -461,11 +464,11 @@
             }
             .content{
                 width: 100%;
-                flex: 87;
+                flex: 85;
                 position: relative;
             }
             .footer{
-                flex: 5;
+                height: 40px;
                 width: 100%;
                 justify-content: center;
                 align-items: center;
