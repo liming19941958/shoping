@@ -98,7 +98,7 @@
                     <el-pagination
                             @size-change="handleSizeChange"
                             @current-change="handleCurrentChange"
-                            :current-page="params.page"
+                            :current-page= "params.page"
                             :page-sizes="[10, 20, 30, 40]"
                             :page-size="params.size"
                             layout="total,slot,sizes, prev, pager, next, jumper"
@@ -144,7 +144,7 @@
                 this.$store.commit('setEditAdd')
             },
             serach(){//在查询之前首先要把传给后台的page重新置0
-                this.params.page='1';
+                this.params.page= 1;
                 console.log('查询-当前页'+this.params.page);
                 this.getList();
             },

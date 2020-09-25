@@ -291,6 +291,7 @@
                 })
             },
             handleClickOpen(item){
+                console.log(item)
                 this.$store.commit('setNews',item)
             },
             editMsg(){

@@ -6,7 +6,12 @@
        <div class="files">
            <span>附件：</span>
            <span v-if="$store.state.item.Attachments.length == 0 " style="color: rgba(0,0,0,0.47);">无附件</span>
-           <span v-if="$store.state.item.Attachments.length > 0 " style="color: #007aff;cursor: pointer" title="下载附件" @click="downloadFile">{{$store.state.item.Attachments[0].FileName}}</span>
+           <span v-if="$store.state.item.Attachments.length > 0 " >
+               <span style="color: #007aff;cursor: pointer" title="下载附件" v-for="(item,index) in $store.state.item.Attachments" :key="index" @click="downloadFile(item)">
+                   {{item.FileName}}
+               <span style="margin-right: 10px"></span>
+               </span>
+           </span>
        </div>
    </div>
 </template>
@@ -23,15 +28,15 @@
             backHome(){
                 this.$store.commit('setTab')
             },
-            downloadFile(){
+            downloadFile(item){
 
                 this.$http.get('/platform/file/download',{
                     params:{
-                        id:this.$store.state.item.Attachments[0].Id,
+                        id:item.Id,
                     }
                 }).then(res=>{
                     if (res.status === 200) {
-                        window.open('http://192.168.1.127:9003/platform/file/download'+'?id='+ this.$store.state.item.Attachments[0].Id, 'newWindow', 'height=200, width=600, top=350, left=300, ' +
+                        window.open('http://192.168.1.127:9003/platform/file/download'+'?id='+ item.Id, 'newWindow', 'height=200, width=600, top=350, left=300, ' +
                             'toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
                     }else {
                         this.$message.error('系统错误，请联系管理员！')
