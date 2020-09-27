@@ -426,8 +426,9 @@
                     width: 25%;
                     min-width: 380px;
                     height: 100%;
+                    /*position: fixed;*/
                     float: right;
-                    right: 0;
+                    /*right: 0;*/
                     display: flex;
                     list-style: none;
                     text-align: center;

@@ -47,8 +47,6 @@
                 }))
             },
             getRate() {
-
-                console.log('oko')
                 var leftContent = this.$refs.leftContent;
                 var rightContent = this.$refs.rightContent;
                 // 先是leftContent旋转角度从0增加到180度，

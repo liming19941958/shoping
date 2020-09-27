@@ -81,6 +81,9 @@
                 contents:'888',
                 isShow:true,
                 isWord:false,
+                visitTotal:null,
+                seriesData:[],
+                xAxisData:[],
                 listData:[],
                 like:'0',
                 VisitCount:'',
@@ -96,13 +99,14 @@
         created(){
             this.getVisitCount();
             this.getPassCount();
+            this.getVisitList();
             this.getDeviceRepairCount();
             this.getDeviceRepairTotal();
             this.getDeviceRepairIsTrue();
             this.list();
         },
         mounted(){
-            this.drawLine();
+
             this.energy();
         },
         methods:{
@@ -119,7 +123,7 @@
                             fontStyle: 'normal',
                             fontWeight: 'normal',
                         },
-                        text: '本周访客趋势图(总人数：'+ this.like + '人）',
+                        text: '本周访客趋势图(总人数：'+ this.visitTotal + ' 人）',
                     },
                     color: ['#51CAA7'],
                     tooltip: {
@@ -137,7 +141,7 @@
                     xAxis: [
                         {
                             type: 'category',
-                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            data: this.xAxisData,
                             axisTick: {
                                 alignWithLabel: true
                             }
@@ -150,10 +154,10 @@
                     ],
                     series: [
                         {
-                            name: '直接访问',
+                            name: '访问人数',
                             type: 'bar',
-                            barWidth: '60%',
-                            data: [10, 52, 200, 334, 390, 330, 220]
+                            barWidth: '40%',
+                            data:this.seriesData,
                         }
                     ]
                 });
@@ -244,6 +248,22 @@
                 window.addEventListener("resize",function(){//设置图表随div大小变化而变化
                     EnergyConsumption.resize();
                 });
+            },
+            getVisitList(){
+                this.$http.get('Building/Business/getVisitList').then(res=>{
+                    if (res.data.IsSuc){
+                        this.visitTotal = res.data.Result.Total;
+                        res.data.Result.Children.forEach(item=>{
+                            this.seriesData.push(item.OUTPUTQTY);
+                            this.xAxisData.push(item.DATEID)
+                        });
+
+                        this.drawLine();
+                        console.log(this.visitTotal)
+                    }
+                }).catch((err=>{
+                    this.$message.error(err)
+                }))
             },
             getVisitCount(){
                 this.$http.get('Building/Business/getVisitCount').then(res=>{

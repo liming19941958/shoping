@@ -94,6 +94,12 @@ Vue.prototype.changeDateTime = function (time){//changeData是函数名
 new Vue({
   render: h => h(App),
   router,
-  store  //将vuex创建的 store 挂载到  VM 实例上，任何组件都可以通过store存取数据
+  store,  //将vuex创建的 store 挂载到  VM 实例上，任何组件都可以通过store存取数据
+  watch:{
+  '$route.path':function (newVal) {//监听路由地址变化
+    sessionStorage.setItem('Path',newVal);
+    // this.$store.commit("setRequestPage",newVal);
+  }
+}
 }).$mount('#app');
 
