@@ -131,7 +131,7 @@
                                 </i>
                                 <span slot="title">系统设置</span>
                             </template>
-                            <router-link to="/SamplingStandardPage">
+                            <router-link to="/process">
                                 <el-menu-item index="2-5-1">流程管理</el-menu-item>
                             </router-link>
                             <router-link to="/TestItemsPage">
