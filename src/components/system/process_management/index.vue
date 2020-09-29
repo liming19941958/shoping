@@ -10,7 +10,7 @@
                     border-bottom: 1px solid #cacaca;
                     float: left">
                 <div style="height: 32px;width: 25%;min-width: 305px;float:left;position: relative;display: inline-block;">
-                    <el-button type="primary" @click="addTenant">新增</el-button>
+                    <el-button type="primary" @click="addProcess">新增</el-button>
                     <el-button type="primary" @click="deleteProcess" >删除</el-button>
                 </div>
                 <div style="height: 32px;width: 21.5%;min-width: 305px;float:left;position: relative;display: inline-block;">
@@ -110,21 +110,22 @@
                 top="10vh">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                     <el-form-item label="流程名称" prop="processName">
-                        <el-input v-model="ruleForm.processName" placeholder="输入公司名称" style="width: 140%!important;"></el-input>
+                        <el-input v-model="ruleForm.processName" placeholder="输入公司名称" style="width: 142%!important;"></el-input>
                     </el-form-item>
                     <el-form-item label="详细描述">
-                        <el-input type="textarea" v-model="ruleForm.description" placeholder="输入邮箱信息" style="width: 140%;"></el-input>
+                        <el-input type="textarea" v-model="ruleForm.description" placeholder="输入邮箱信息" style="width: 142%;"></el-input>
                     </el-form-item>
                     <p style="margin-bottom: 15px;font-weight: bold;">*流程节点设计</p>
-                    <el-collapse v-model="activeNames" @change="handleChange" style="margin-left: 33px;">
-                        <el-collapse-item title="物业保安部" name="1">
-                            <span>顺序值：</span><el-input-number v-model="num1" controls-position="right" :min="1" :max="10" @change="handleChangeNum"></el-input-number>
-                        </el-collapse-item>
-                        <el-collapse-item title="物业工程部" name="2">
-                            <span>顺序值：</span><el-input-number v-model="num2" controls-position="right" :min="1" :max="10" @change="handleChangeNum"></el-input-number>
-                        </el-collapse-item>
-                        <el-collapse-item title="物业维修部" name="3">
-                            <span>顺序值：</span><el-input-number v-model="num3" controls-position="right" :min="1" :max="10" @change="handleChangeNum"></el-input-number>
+                    <el-collapse v-model="activeNames" @change="handleChange" style="margin-left: 24px;">
+                        <el-collapse-item v-for="(item,index) in processData" :key="index" :title="item.Name" name="1">
+                            <span style="float: left">顺序值：<el-input-number v-model="item['number']" controls-position="right"  style="width: 85px;" :min="1" :max="10" @change="handleChangeNum"></el-input-number></span>
+                           <span style="float:left;display: inline-block;margin-top: 5px;">
+                               <el-form-item label="审核人：">
+                                <el-radio-group v-model="item['Reviewer']">
+                                    <el-radio :label="items.DisPlayName" v-for="(items,index) in item.Children" :key="index"></el-radio>
+                                </el-radio-group>
+                            </el-form-item>
+                           </span>
                         </el-collapse-item>
                     </el-collapse>
             </el-form>
@@ -149,6 +150,9 @@
                 dialogVisible: false,
                 total: null,
                 totalPage: null,
+                PropertySecurityDepartment:'',
+                PropertyEngineeringDepartment:'',
+                PropertyMaintenanceDepartment:'',
                 ruleForm: {
                     processName: '',
                     description: '',
@@ -184,15 +188,14 @@
                 loading: true,
                 multipleSelection: [],
                 ids:'',
-                tableData: []
+                tableData: [],
+                processData:[],
             };
         },
         created() {
             this.GetListByPage();
         },
-        mounted() {
 
-        },
         methods: {
             handleChangeNum(value) {
                 console.log(value);
@@ -204,7 +207,14 @@
                 this.multipleSelection = val;
                 console.log(val)
             },
-            addTenant() {
+            addProcess() {
+                this.$http.get('Building/FlowInfo/GetOrgsList').then(res=>{
+                    this.processData = res.data.Result;
+                    // this.PropertySecurityDepartment = res.data.Result[0].Name;
+                    // this.PropertyEngineeringDepartment = res.data.Result[1].Name;
+                    // this.PropertyMaintenanceDepartment = res.data.Result[2].Name;
+                    console.log(this.processData)
+                })
                 this.ruleForm.companyName= '';
                 this.ruleForm.accountNumber = '';
                 this.ruleForm.email = '';
@@ -262,10 +272,35 @@
 
             },
             submitForm(formName) {
+                let FormData = [];
+               this.processData.forEach(item=>{
+                   let formObj = {};
+                   formObj['Flow'] = item.number;
+                   formObj['Subject'] = this.ruleForm.processName;
+                   formObj['Remark'] = this.ruleForm.description;
+                   formObj['OrgId'] = item.Id;
+                   formObj['GroupId'] = '00000000-0000-0000-0000-000000000000';
+                   formObj['Id'] = '00000000-0000-0000-0000-000000000000';
+                   item.Children.forEach(items=>{
+                       if (item.Reviewer === items.DisPlayName) {
+                           formObj['UserId'] = items.Id;
+                       }
+                   });
+                   FormData.push(formObj);
+               });
+                console.log(FormData)
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.dialogVisible = false;
-                        alert('submit!');
+                        this.$http.post('Building/FlowInfo/update',FormData).then(res=>{
+                            if (res.data.IsSuc){
+                                this.GetListByPage();
+                                this.$message.success('新增成功！');
+                                this.dialogVisible = false;
+                            }
+                        }).catch((err)=>{
+                            this.$message.error(err)
+                        })
+
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -352,7 +387,7 @@
 
     .log-query-page {
         display: flex;
-        position: absolute;
+        position: relative;
         width: 100%;
         height: 100%;
         ::v-deep .el-collapse-item__content {
@@ -374,6 +409,10 @@
              .el-form-item__label {
                 font-weight: bold!important;
             }
+            .el-form-item__error {
+                top: 98%;
+            }
+
         }
         .submitBtn{
             margin: 0 13px 0 25px;

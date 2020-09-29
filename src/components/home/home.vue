@@ -35,7 +35,6 @@
 
 <style scoped lang="scss">
     .home{
-        overflow-y: scroll;
         width: 100%;
         height: 100%;
         background-color: #ffffff;

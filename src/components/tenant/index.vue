@@ -1,6 +1,6 @@
 <template>
     <div class="log-query-page">
-        <el-row style="width: 100%;height: 100%;margin-top: 17px;position: relative">
+        <el-row style="width: 100%;height: 98%;margin-top: 17px;position: relative">
             <el-col style="
                     /*min-height:100px;*/
                     /*height: 5%;*/
@@ -24,9 +24,8 @@
                     </el-input>
                 </div>
                 <el-button type="primary" @click="serach">查询</el-button>
-
             </el-col>
-            <el-col style="height: 95%;width:100%;padding: 15px 15px 15px 15px; margin-top: 10px;">
+            <el-col style="width:100%;padding: 15px 15px 15px 15px; margin-top: 10px;">
                 <el-table
                         :empty-text="dataText"
                         v-loading="loading"
@@ -34,7 +33,7 @@
                         element-loading-spinner="el-icon-loading"
                         element-loading-background="rgba(0, 0, 0, 0.08)"
                         :data="tableData"
-                        style="height: 80%; overflow: scroll"
+                        style="overflow: scroll"
                         @selection-change="handleSelectionChange">
                     <el-table-column
                             type="selection"
@@ -147,22 +146,23 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <div class="block"
-                     style="position:relative;
-                     height: 25%;
-                            margin-top: 20px;float: right">
-                    <el-pagination
-                            @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
-                            :current-page="params.page"
-                            :page-sizes="[10, 20, 30, 40]"
-                            :page-size="params.size"
-                            layout="total,slot,sizes, prev, pager, next, jumper"
-                            :total="total">
-                        <span>共{{totalPage}}页</span>
-                    </el-pagination>
-                </div>
             </el-col>
+            <div class="block"
+                 style="position:absolute;
+                 bottom: 25px;
+                 right: 25px;
+                     ">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="params.page"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="params.size"
+                        layout="total,slot,sizes, prev, pager, next, jumper"
+                        :total="total">
+                    <span>共{{totalPage}}页</span>
+                </el-pagination>
+            </div>
         </el-row>
         <el-dialog
                 title="新增信息"
@@ -218,7 +218,6 @@
                 <el-button class="submitBtn" type="primary"  @click="submitForm('ruleForm')">确 定</el-button>
             </span>
         </el-dialog>
-
     </div>
 </template>
 

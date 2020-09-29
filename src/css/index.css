@@ -127,13 +127,7 @@ a{
        margin-left: 10px;
        padding-left: 0px!important;
    }
-   /*body{*/
-   /*    background:#FCCFCFC;*/
-   /*    min-width: 1220px;*/
-   /*    !*_width: expression(document.documentElement.clientHeight > 1220 ? "1220px" : "");*!*/
-   /*    font-size:13px;*/
-   /*    height:101%;!*始终出现Y轴的滚动条*!*/
-   /*}*/
+
    .el-input--medium .el-input__inner {
         height: 100%;
         line-height: 100%;
@@ -276,8 +270,14 @@ a{
     top: -450px!important;
 }
 .el-collapse-item__header {
+    margin-bottom: 5px;
     font-weight: bold;
     color:#337ab7;
     background-color: #f5f5f5!important;
 }
-
+.el-input-number.is-controls-right .el-input__inner {
+    padding-left: 8px;
+}
+.el-radio-group {
+    width: 259px;
+}
